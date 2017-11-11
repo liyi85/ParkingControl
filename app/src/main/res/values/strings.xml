@@ -7,7 +7,17 @@
     <string name="contraseña">Contraseña</string>
     <string name="text_error_username">El nombre de usuario es requerido</string>
     <string name="text_error_password">La contraseña no puede ser vacía</string>
+    <string name="login_message">Has iniciado sesión perfectamente.</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="parqueos">Parqueos</string>
+    <string name="cuenta">Mi cuenta</string>
+    <string name="usuario">Usuario</string>
+    <string name="correo">usuario@ejemplo.com</string>
+
+    <string name="open_drawer">Open navigation drawer</string>
+    <string name="close_drawer">Close navigation drawer</string>
+    <string name="titulo">Parking Control</string>
+    <string name="parking">Parqueos</string>
+
 </resources>

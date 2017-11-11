@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_parqueos"
+            android:checked="true"
+            android:icon="@drawable/ic_parking"
+            android:title="@string/parqueos" />
+
+        <item
+            android:id="@+id/nav_cuenta"
+            android:icon="@drawable/ic_cuenta"
+            android:title="@string/cuenta" />
+    </group>
+</menu>

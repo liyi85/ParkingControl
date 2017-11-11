@@ -8,6 +8,14 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
     <style name="TextTitle" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:textSize">22sp</item>
@@ -24,6 +32,10 @@
     <style name="Button" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:backgroundTint">@color/colorAccent</item>
         <item name="android:textColor">@color/colorWhit</item>
+    </style>
+
+    <style name="MyNavigationDrawer" parent="AppTheme">
+        <item name="colorPrimary">@color/colorAccent</item>
     </style>
 
 </resources>
