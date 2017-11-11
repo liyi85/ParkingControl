@@ -12,8 +12,11 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import static com.example.andrearodriguez.parkingcontrol.PreferencesConstants.KEY_USERNAME;
 
 /**
  * Created by andrearodriguez on 11/9/17.
@@ -25,8 +28,9 @@ class Main2Activity extends AppCompatActivity
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     LinearLayout linearLayout;
-    private SharedPreferences preferences;
+    private SharedPreferences pref;
     TextView textUsername;
+    TextView textUseremail;
 
 
     @Override
@@ -37,14 +41,25 @@ class Main2Activity extends AppCompatActivity
                 .add(R.id.container, new ParkingFragment())
                 .commit();
 
+        pref = getSharedPreferences(PreferencesConstants.PREFERENCE_NAME, MODE_PRIVATE);
+
+        Bundle datos = this.getIntent().getExtras();
+        String currenUser = datos.getString(KEY_USERNAME);
+
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         if (navigationView != null)
             navigationView.setNavigationItemSelectedListener(this);
 
-        preferences = getSharedPreferences(
-                PreferencesConstants.PREFERENCE_NAME, MODE_PRIVATE);
+        View headerView = navigationView.getHeaderView(0);
+
+        textUsername = (TextView) headerView.findViewById(R.id.text_name);
+        textUsername.setText(currenUser);
+
+        textUseremail = (TextView) headerView.findViewById(R.id.text_email);
+        textUseremail.setText(currenUser+"@example.com");
+
     }
 
     @Override

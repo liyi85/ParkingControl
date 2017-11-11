@@ -37,12 +37,12 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
 
         String username = pref.getString(PreferencesConstants.KEY_USERNAME, null);
 
-
         if (username != null) {
             Intent intent = new Intent(this,Main2Activity.class);
+            intent.putExtra(KEY_USERNAME, username);
             startActivity(intent);
         } else {
-            Toast.makeText(this, "ingresr datos", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Ingresa tus datos", Toast.LENGTH_SHORT).show();
         }
 
         editUsername = (TextInputLayout) findViewById(R.id.edit_username);
@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 login();
             }
         });
@@ -75,7 +74,6 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
     }
 
     private void managePrefs() {
-
         if (saveLoginCheckBox.isChecked()){
             editor.putString(KEY_USERNAME, editUsername.getEditText().getText().toString().trim());
             editor.putString(KEY_PASSWORD, editPassword.getEditText().getText().toString().trim());
@@ -115,11 +113,9 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
             editPassword.setError(getString(R.string.text_error_password));
         }
         if (login) {
-            Toast.makeText(MainActivity.this, "nombre de usuario: " + editUsername.getEditText().getText().toString().trim(), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this,Main2Activity.class);
+            intent.putExtra(KEY_USERNAME, username);
             startActivity(intent);
         }
     }
-
-
 }
