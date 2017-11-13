@@ -15,4 +15,15 @@ public class CuentaFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_cuenta, container, false);
         return view;
     }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (getActivity() instanceof Main2Activity) {
+            Main2Activity activity2 = (Main2Activity) getActivity();
+            activity2.updateView(getString(R.string.titulo), (getString(R.string.cuenta)));
+            activity2.navigationView.setCheckedItem(R.id.nav_cuenta);
+
+        }
+    }
 }

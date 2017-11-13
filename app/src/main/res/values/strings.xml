@@ -20,4 +20,11 @@
     <string name="titulo">Parking Control</string>
     <string name="parking">Parqueos</string>
 
+    <string name="matricula">No. de Matricula</string>
+    <string name="cliente">Id del cliente</string>
+
+    <string name="cancelar">CANCELAR</string>
+    <string name="registrar">REGISTRAR</string>
+    <string name="registrar_parqueo">Registrar parqueo</string>
+
 </resources>
