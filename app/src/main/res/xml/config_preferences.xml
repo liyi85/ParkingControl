@@ -2,21 +2,19 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <EditTextPreference
-        android:defaultValue="@string/title_name"
-        android:key="name"
+        android:key="nombre_de_usuario"
         android:summary="@string/summary_name"
-        android:title="@string/title_name" />
+        android:title="@string/nombre_de_usuario" />
 
     <EditTextPreference
-        android:defaultValue="@string/default_name"
-        android:key="name"
-        android:summary="@string/summary_name"
-        android:title="@string/default_name" />
+        android:key="password"
+        android:summary="@string/summary_password"
+        android:title="@string/contraseña" />
 
     <SwitchPreference
         android:defaultValue="true"
-        android:key="confirm_delete"
-        android:summary="@string/summary_confirm_delete"
-        android:title="@string/title_confirm_delete" />
+        android:key="email"
+        android:summary="@string/notificacion_email"
+        android:title="@string/title_notificacion_email" />
 
 </PreferenceScreen>

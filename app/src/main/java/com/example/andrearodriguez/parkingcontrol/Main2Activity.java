@@ -13,6 +13,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -25,8 +26,6 @@ import android.widget.Toast;
 import com.example.andrearodriguez.parkingcontrol.adapter.RegistroAdapter;
 
 import java.io.IOException;
-
-import static com.example.andrearodriguez.parkingcontrol.PreferencesConstants.KEY_USERNAME;
 
 /**
  * Created by andrearodriguez on 11/9/17.
@@ -43,6 +42,7 @@ class Main2Activity extends AppCompatActivity
     TextView textUsername;
     TextView textUseremail;
     private RegistroAdapter adapter;
+    View header;
 
     private final int REQUEST_CODE = 1;
     private final String[] PERMISOS = {
@@ -65,9 +65,6 @@ class Main2Activity extends AppCompatActivity
 
         pref = getSharedPreferences(PreferencesConstants.PREFERENCE_NAME, MODE_PRIVATE);
 
-        Bundle datos = this.getIntent().getExtras();
-        String currenUser = datos.getString(KEY_USERNAME);
-
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         Fragment fragment = new ParkingFragment();
@@ -78,14 +75,7 @@ class Main2Activity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         if (navigationView != null)
             navigationView.setNavigationItemSelectedListener(this);
-
-        View headerView = navigationView.getHeaderView(0);
-
-        textUsername = (TextView) headerView.findViewById(R.id.text_name);
-        textUsername.setText(currenUser);
-
-        textUseremail = (TextView) headerView.findViewById(R.id.text_email);
-        textUseremail.setText(currenUser+"@example.com");
+        header = navigationView.getHeaderView(0);
 
     }
 
@@ -105,6 +95,10 @@ class Main2Activity extends AppCompatActivity
         drawerLayout.addDrawerListener(toogle);
         toogle.syncState();
 
+        String username = pref.getString(PreferencesConstants.KEY_USERNAME, null);
+
+        updateUsername(username);
+
         if (tipo) {
 
             RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
@@ -120,6 +114,23 @@ class Main2Activity extends AppCompatActivity
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
             recyclerView.setAdapter(adapter);
+        }
+    }
+
+    private void updateUsername(String usuario) {
+        textUsername = (TextView) header.findViewById(R.id.text_name);
+        textUsername.setText(usuario);
+
+        textUseremail = (TextView) header.findViewById(R.id.text_email);
+        textUseremail.setText(usuario+"@example.com");
+
+        SharedPreferences configuraciones = PreferenceManager.getDefaultSharedPreferences(this);
+        String nombre = configuraciones.getString("nombre_de_usuario", null);
+        String email = configuraciones.getString("nombre_de_usuario", null);
+
+        if (textUsername != null && textUseremail !=null) {
+            textUsername.setText(nombre);
+            textUseremail.setText(email + "@ejemplo.com");
         }
     }
 
@@ -173,4 +184,5 @@ class Main2Activity extends AppCompatActivity
             updateView("ParkingControl", "Paruqeos", true);
         adapter.notifyDataSetChanged();
     }
+
 }

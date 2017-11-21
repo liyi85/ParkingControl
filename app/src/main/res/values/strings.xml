@@ -27,11 +27,11 @@
     <string name="registrar">REGISTRAR</string>
     <string name="registrar_parqueo">Registrar parqueo</string>
 
-    <string name="title_name">Nombre de usuario</string>
     <string name="summary_name">El nombre con que te identificaras dentro de la aplicación</string>
-    <string name="default_name">usuario@nextuniversity.com</string>
 
-    <string name="summary_confirm_delete">Mostrar un diálogo cuando se este eliminando archivo</string>
-    <string name="title_confirm_delete">Confirmación para eliminar</string>
+    <string name="summary_password">Clave que permite iniciar sesión en la aplicación</string>
+
+    <string name="notificacion_email">Recibe notificaciones de la aplicación, noticias e información relevante en tu cuenta de correo</string>
+    <string name="title_notificacion_email">Notificaciones por correo electrónico</string>
 
 </resources>

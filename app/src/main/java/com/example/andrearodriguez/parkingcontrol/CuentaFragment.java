@@ -22,4 +22,5 @@ public class CuentaFragment extends PreferenceFragmentCompat {
             activity2.navigationView.setCheckedItem(R.id.nav_cuenta);
         }
     }
+
 }
