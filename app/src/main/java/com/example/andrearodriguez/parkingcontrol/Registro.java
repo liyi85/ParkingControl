@@ -3,10 +3,10 @@ package com.example.andrearodriguez.parkingcontrol;
 import java.io.Serializable;
 
 /**
- * Created by andrearodriguez on 11/12/17.
+ * Created by andrearodriguez on 11/15/17.
  */
 
-public class Registro implements Serializable{
+public class Registro implements Serializable {
 
     private String matricula;
     private String cliente;

@@ -4,18 +4,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 
 public class ParkingFragment extends Fragment {
-    private RecyclerView registroRecyclerView;
-    private EditText editMatricula;
-    private EditText editCliente;
-    private RegistroAdapter adapter;
+
     private FloatingActionButton btnAgregarRegistro;
 
     @Nullable
@@ -32,16 +27,16 @@ public class ParkingFragment extends Fragment {
 
             }
         });
+
         return view;
     }
-
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (getActivity() instanceof Main2Activity) {
             Main2Activity activity2 = (Main2Activity) getActivity();
-            activity2.updateView(getString(R.string.titulo), (getString(R.string.parking)));
+            activity2.updateView(getString(R.string.titulo), (getString(R.string.parking)), true);
             activity2.navigationView.setCheckedItem(R.id.nav_parqueos);
 
         }

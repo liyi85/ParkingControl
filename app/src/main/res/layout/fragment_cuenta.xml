@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".MainActivity">
+    tools:context=".Main2Activity">
 
 
         <android.support.design.widget.AppBarLayout
@@ -21,6 +21,5 @@
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
 
         </android.support.design.widget.AppBarLayout>
-
 
 </android.support.design.widget.CoordinatorLayout>

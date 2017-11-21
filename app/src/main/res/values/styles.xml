@@ -11,6 +11,11 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+    </style>
+
+    <style name="AppTheme.PreferenceThemeOverlay.v14.Material" parent="PreferenceThemeOverlay.v14.Material">
+        <item name="android:layout">@layout/fragment_cuenta</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
@@ -55,6 +60,7 @@
     <style name="ButtonDialog" parent="@style/Widget.AppCompat.Button.Borderless">
         <item name="android:textColor">@color/colorAccent</item>
     </style>
+
 
 
 </resources>

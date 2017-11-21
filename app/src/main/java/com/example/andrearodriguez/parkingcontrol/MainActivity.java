@@ -27,10 +27,12 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
     Button buttonLogin;
     private CheckBox saveLoginCheckBox;
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         pref = getSharedPreferences(PreferencesConstants.PREFERENCE_NAME, MODE_PRIVATE);
         editor = pref.edit();

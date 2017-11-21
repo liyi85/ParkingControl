@@ -1,20 +1,30 @@
 package com.example.andrearodriguez.parkingcontrol;
 
+import android.Manifest;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.andrearodriguez.parkingcontrol.adapter.RegistroAdapter;
+
+import java.io.IOException;
 
 import static com.example.andrearodriguez.parkingcontrol.PreferencesConstants.KEY_USERNAME;
 
@@ -23,7 +33,8 @@ import static com.example.andrearodriguez.parkingcontrol.PreferencesConstants.KE
  */
 
 class Main2Activity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener{
+        implements NavigationView.OnNavigationItemSelectedListener,
+                                        DialogoAgregarRegistro.OnAgregarRegistroListener{
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
@@ -31,15 +42,26 @@ class Main2Activity extends AppCompatActivity
     private SharedPreferences pref;
     TextView textUsername;
     TextView textUseremail;
+    private RegistroAdapter adapter;
+
+    private final int REQUEST_CODE = 1;
+    private final String[] PERMISOS = {
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+    };
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.container, new ParkingFragment())
-                .commit();
+
+        int escribir = ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int leer = ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+
+        if (escribir != PackageManager.PERMISSION_GRANTED || leer != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, PERMISOS, REQUEST_CODE);
+        }
 
         pref = getSharedPreferences(PreferencesConstants.PREFERENCE_NAME, MODE_PRIVATE);
 
@@ -47,6 +69,11 @@ class Main2Activity extends AppCompatActivity
         String currenUser = datos.getString(KEY_USERNAME);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        Fragment fragment = new ParkingFragment();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.container,fragment)
+                .commit();
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         if (navigationView != null)
@@ -62,30 +89,49 @@ class Main2Activity extends AppCompatActivity
 
     }
 
-    @Override
-    public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(navigationView))
-            drawerLayout.closeDrawer(GravityCompat.START);
-        else
-            super.onBackPressed();
-    }
-
-    public void updateView(String title, String subtitle) {
+    public void updateView(String title, String subtitle, Boolean tipo) {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         linearLayout = (LinearLayout) findViewById(R.id.header);
 
-        if (toolbar != null)
+        if (toolbar != null) {
             toolbar.setTitle(title);
-        toolbar.setSubtitle(subtitle);
+            toolbar.setSubtitle(subtitle);
+        }
         setSupportActionBar(toolbar);
 
         ActionBarDrawerToggle toogle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
                 R.string.open_drawer, R.string.close_drawer);
         drawerLayout.addDrawerListener(toogle);
         toogle.syncState();
+
+        if (tipo) {
+
+            RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+            try {
+                adapter = new RegistroAdapter(this, ServicioRegistro.getInstance(this).cargarDatos());
+
+            } catch (IOException e) {
+                Toast.makeText(this, "Error al cargar el archivo", Toast.LENGTH_SHORT).show();
+            } catch (ClassNotFoundException e) {
+                Toast.makeText(this, "Error al cargar la lista", Toast.LENGTH_SHORT).show();
+            }
+
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+            recyclerView.setAdapter(adapter);
+        }
     }
 
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }else
+            super.onBackPressed();
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
@@ -99,15 +145,32 @@ class Main2Activity extends AppCompatActivity
             case R.id.nav_cuenta:
                 fragment = new CuentaFragment();
                 break;
+
         }
-        if (fragment != null)
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, fragment)
-                    .addToBackStack(null)
-                    .commit();
+            if (fragment != null)
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container, fragment)
+                        .addToBackStack(null)
+                        .commit();
 
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
 
+    }
+
+    @Override
+    public void onAgregarRegistro(Registro registro) {
+        try {
+            ServicioRegistro.getInstance(this).guardarRegistro(registro);
+            registro.getCliente();
+        } catch (IOException e) {
+            Toast.makeText(this, "Error al actualizar el archivo", Toast.LENGTH_SHORT).show();
+        } catch (ClassNotFoundException e) {
+            Toast.makeText(this, "Error al guardar elemento en la lista", Toast.LENGTH_SHORT).show();
+        }
+
+        if(adapter==null)
+            updateView("ParkingControl", "Paruqeos", true);
+        adapter.notifyDataSetChanged();
     }
 }

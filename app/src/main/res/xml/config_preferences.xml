@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditTextPreference
+        android:defaultValue="@string/title_name"
+        android:key="name"
+        android:summary="@string/summary_name"
+        android:title="@string/title_name" />
+
+    <EditTextPreference
+        android:defaultValue="@string/default_name"
+        android:key="name"
+        android:summary="@string/summary_name"
+        android:title="@string/default_name" />
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="confirm_delete"
+        android:summary="@string/summary_confirm_delete"
+        android:title="@string/title_confirm_delete" />
+
+</PreferenceScreen>
