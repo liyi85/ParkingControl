@@ -55,9 +55,16 @@ public class ServicioRegistro {
         return registros;
 
     }
-    public void eliminar(){
+
+    public ArrayList<Registro> eliminar() throws IOException{
+        registros.removeAll(registros);
+        File archivo = new File(context.getExternalFilesDir(null), nombreArchivo);
+        ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(archivo));
+        output.writeObject(registros);
+        output.close();
         context.deleteFile(nombreArchivo);
         registros.clear();
+        return registros;
     }
 
 }

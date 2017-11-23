@@ -42,7 +42,6 @@ public class RegistroAdapter extends  RecyclerView.Adapter<RegistroAdapter.Regis
         this.activity = activity;
     }
 
-
     private List<Registro> getRegistros() {
         return registros;
     }
@@ -68,9 +67,8 @@ public class RegistroAdapter extends  RecyclerView.Adapter<RegistroAdapter.Regis
         return registros.size();
     }
 
-    public void limpiar() {
-        registros.clear();
-        notifyItemRangeRemoved(0, registros.size());
-    }
 
+    public void setRegistros(List<Registro> registros) {
+        this.registros = registros;
+    }
 }

@@ -33,6 +33,7 @@ import android.widget.Toast;
 import com.example.andrearodriguez.parkingcontrol.adapter.RegistroAdapter;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static com.example.andrearodriguez.parkingcontrol.PreferencesConstants.RECORDAR_BOOLEAN;
 
@@ -144,9 +145,7 @@ class Main2Activity extends AppCompatActivity
 
         textUsername.setText(usuario);
         textUseremail.setText(usuario+"@example.com");
-
     }
-
 
     @Override
     public void onBackPressed() {
@@ -240,6 +239,7 @@ class Main2Activity extends AppCompatActivity
                 int selec=lista.getCheckedItemPosition();
 
                 if (selec==0) {
+
                     eliminarRegistros();
                     updateView(getString(R.string.titulo),getString(R.string.parqueos),true);
                     adapter.notifyDataSetChanged();
@@ -273,15 +273,19 @@ class Main2Activity extends AppCompatActivity
         edit2.clear();
         edit2.apply();
 
+        eliminarRegistros();
+
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
     }
-
-
+    
     private void eliminarRegistros() {
         try {
             ServicioRegistro.getInstance(Main2Activity.this).eliminar();
+            adapter.setRegistros(new ArrayList<Registro>());
+            adapter.notifyDataSetChanged();
+            recyclerView.setAdapter(adapter);
         } catch (IOException e) {
             Toast.makeText(Main2Activity.this, "Error al actualizar el archivo", Toast.LENGTH_SHORT).show();
         } catch (ClassNotFoundException e) {
