@@ -2,7 +2,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <EditTextPreference
-        android:key="nombre_de_usuario"
+        android:key="nombre"
         android:summary="@string/summary_name"
         android:title="@string/nombre_de_usuario" />
 

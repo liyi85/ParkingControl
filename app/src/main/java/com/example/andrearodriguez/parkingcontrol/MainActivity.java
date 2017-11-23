@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
 
         if (username != null) {
             Intent intent = new Intent(this,Main2Activity.class);
-            intent.putExtra(KEY_USERNAME, username);
             startActivity(intent);
         } else {
             Toast.makeText(this, "Ingresa tus datos", Toast.LENGTH_SHORT).show();

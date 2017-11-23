@@ -33,5 +33,9 @@
 
     <string name="notificacion_email">Recibe notificaciones de la aplicación, noticias e información relevante en tu cuenta de correo</string>
     <string name="title_notificacion_email">Notificaciones por correo electrónico</string>
+    <string name="exportar_registros">Exportar registros</string>
+    <string name="cerrar_sesi_n">Cerrar sesión</string>
+    <string name="op1_export">Sin conservar los registros localmente</string>
+    <string name="op2_export">Conservando los registros localmente</string>
 
 </resources>

@@ -55,4 +55,9 @@ public class ServicioRegistro {
         return registros;
 
     }
+    public void eliminar(){
+        context.deleteFile(nombreArchivo);
+        registros.clear();
+    }
+
 }
