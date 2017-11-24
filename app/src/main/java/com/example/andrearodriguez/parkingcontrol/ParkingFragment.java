@@ -36,7 +36,7 @@ public class ParkingFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         if (getActivity() instanceof Main2Activity) {
             Main2Activity activity2 = (Main2Activity) getActivity();
-            activity2.updateView(getString(R.string.titulo), (getString(R.string.parking)), true);
+            activity2.updateView(getString(R.string.titulo), (getString(R.string.parqueos)), true);
             activity2.navigationView.setCheckedItem(R.id.nav_parqueos);
 
         }

@@ -50,11 +50,10 @@ public class DialogoAgregarRegistro extends DialogFragment {
                     Registro registro = new Registro(editMatricula.getText().toString(),
                             editCliente.getText().toString());
                     listener.onAgregarRegistro(registro);
-                    Toast.makeText(getActivity(), "registro "+matricula+" "+ cliente, Toast.LENGTH_SHORT).show();
                 dismiss();
 
                 } else {
-                    Toast.makeText(getActivity(), "Por favor llenar todos los campos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.llenar_campos, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -84,9 +83,8 @@ public class DialogoAgregarRegistro extends DialogFragment {
         try {
             listener = (OnAgregarRegistroListener) getActivity();
         } catch (ClassCastException ex) {
-            throw new ClassCastException("El contexto debe implementar la interfaz OnAgregarRegistroListener");
+            throw new ClassCastException(getString(R.string.error_interfaz));
         }
     }
-
 
 }

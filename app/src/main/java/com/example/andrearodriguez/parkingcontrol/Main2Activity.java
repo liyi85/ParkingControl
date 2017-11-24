@@ -128,9 +128,9 @@ class Main2Activity extends AppCompatActivity
                 adapter = new RegistroAdapter(this, ServicioRegistro.getInstance(this).cargarDatos());
 
             } catch (IOException e) {
-                Toast.makeText(this, "Error al cargar el archivo", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.error_archivo, Toast.LENGTH_SHORT).show();
             } catch (ClassNotFoundException e) {
-                Toast.makeText(this, "Error al cargar la lista", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.error_lista, Toast.LENGTH_SHORT).show();
             }
 
             recyclerView.setHasFixedSize(true);
@@ -188,13 +188,13 @@ class Main2Activity extends AppCompatActivity
             ServicioRegistro.getInstance(this).guardarRegistro(registro);
             registro.getCliente();
         } catch (IOException e) {
-            Toast.makeText(this, "Error al actualizar el archivo", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.error_actualizar_archivo, Toast.LENGTH_SHORT).show();
         } catch (ClassNotFoundException e) {
-            Toast.makeText(this, "Error al guardar elemento en la lista", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.error_guardar_nuevo_elemento, Toast.LENGTH_SHORT).show();
         }
 
         if (adapter == null)
-            updateView("ParkingControl", "Paruqeos", true);
+        updateView(getString(R.string.titulo), (getString(R.string.parqueos)), true);
         adapter.notifyDataSetChanged();
     }
 
@@ -224,7 +224,7 @@ class Main2Activity extends AppCompatActivity
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        builder.setTitle("Exportar Registros");
+        builder.setTitle(getString(R.string.exportar_registros));
 
         builder.setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener() {
             @Override
@@ -232,7 +232,7 @@ class Main2Activity extends AppCompatActivity
             }
         });
 
-        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.aceptar, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 ListView lista = ((AlertDialog) dialog).getListView();
@@ -240,18 +240,20 @@ class Main2Activity extends AppCompatActivity
 
                 if (selec==0) {
 
+                    guardarRegistros();
+                    Toast.makeText(getApplicationContext(), "Archivo guardado en dispositivo", Toast.LENGTH_LONG).show();
                     eliminarRegistros();
                     updateView(getString(R.string.titulo),getString(R.string.parqueos),true);
                     adapter.notifyDataSetChanged();
                     dialog.cancel();
-                    Toast.makeText(getApplicationContext(), "Aún no existe el archivo", Toast.LENGTH_LONG).show();
                 } else {
-                    dialog.cancel();
+                    guardarRegistros();
                     Toast.makeText(getApplicationContext(), "Archivo guardado en dispositivo", Toast.LENGTH_LONG).show();
+                    dialog.cancel();
                 }
             }
         });
-        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.cancelar, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
@@ -275,21 +277,30 @@ class Main2Activity extends AppCompatActivity
 
         eliminarRegistros();
 
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
     }
-    
+
     private void eliminarRegistros() {
         try {
-            ServicioRegistro.getInstance(Main2Activity.this).eliminar();
+            ServicioRegistro.getInstance(Main2Activity.this).eliminarArchivo();
             adapter.setRegistros(new ArrayList<Registro>());
             adapter.notifyDataSetChanged();
             recyclerView.setAdapter(adapter);
         } catch (IOException e) {
-            Toast.makeText(Main2Activity.this, "Error al actualizar el archivo", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Main2Activity.this, getString(R.string.error_actualizar_archivo), Toast.LENGTH_SHORT).show();
         } catch (ClassNotFoundException e) {
-            Toast.makeText(Main2Activity.this, "Error al eliminar el elemento", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Main2Activity.this, R.string.error_eliminar, Toast.LENGTH_SHORT).show();
+        }
+    }
+    private void guardarRegistros() {
+        try {
+            ServicioRegistro.getInstance(Main2Activity.this).guardarArchivo();
+        } catch (IOException e) {
+            Toast.makeText(Main2Activity.this, getString(R.string.error_actualizar_archivo), Toast.LENGTH_SHORT).show();
+        } catch (ClassNotFoundException e) {
+            Toast.makeText(Main2Activity.this, R.string.error_eliminar, Toast.LENGTH_SHORT).show();
         }
     }
 

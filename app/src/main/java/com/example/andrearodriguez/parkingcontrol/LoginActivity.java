@@ -17,7 +17,7 @@ import static com.example.andrearodriguez.parkingcontrol.PreferencesConstants.KE
 import static com.example.andrearodriguez.parkingcontrol.PreferencesConstants.KEY_USERNAME;
 import static com.example.andrearodriguez.parkingcontrol.PreferencesConstants.RECORDAR_BOOLEAN;
 
-public class MainActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
+public class LoginActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
 
     private SharedPreferences pref;
     SharedPreferences.Editor editor;
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
             Intent intent = new Intent(this,Main2Activity.class);
             startActivity(intent);
         } else {
-            Toast.makeText(this, "Ingresa tus datos", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.ingresar_datos, Toast.LENGTH_SHORT).show();
         }
 
         editUsername = (TextInputLayout) findViewById(R.id.edit_username);
